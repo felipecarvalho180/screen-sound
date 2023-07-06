@@ -1,15 +1,26 @@
-﻿Music music1 = new Music();
-music1.name = "DNA";
-music1.artist = "Kendric Lamar";
-music1.duration = 243;
-music1.available = true;
+﻿// Band
+
+Band queen = new Band("Queen");
+
+Album album = new Album("A night at the opera");
+
+Music music1 = new Music(queen, "Love of my life")
+{
+    Duration = 213,
+    Available = true,
+};
+
+Music music2 = new Music(queen, "Bohemian Rhapsody")
+{
+    Duration = 354,
+    Available = false,
+};
+
+album.AddMusic(music1);
+album.AddMusic(music2);
+queen.AddAlbum(album);
 
 music1.ShowDetails();
-
-Music music2 = new Music();
-music2.name = "8Mile";
-music2.artist = "Eminem";
-music2.duration = 278;
-music2.available = false;
-
 music2.ShowDetails();
+album.ShowMusics();
+queen.ShowBand();
