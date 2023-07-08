@@ -1,4 +1,6 @@
-﻿class Episode
+﻿namespace ScreenSound.FirstChallenge;
+
+class Episode
 {
     public Episode(int index, string title, int duration)
     {

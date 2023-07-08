@@ -1,4 +1,6 @@
-﻿class Guest {
+﻿namespace ScreenSound.FirstChallenge;
+
+class Guest {
     public Guest(string name)
     {
         Name = name;

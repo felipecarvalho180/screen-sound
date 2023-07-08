@@ -1,4 +1,6 @@
-﻿class Podcast
+﻿namespace ScreenSound.FirstChallenge;
+
+class Podcast
 {
     public Podcast(string name, string host)
     {

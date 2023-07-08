@@ -1,47 +1,75 @@
-﻿// Band
+﻿using ScreenSound.Menu;
+using ScreenSound.Models;
 
-//Band queen = new Band("Queen");
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        Band band1 = new("Linkin Park");
+        band1.AddRating(new Rating(10));
+        band1.AddRating(new Rating(7));
+        band1.AddRating(new Rating(9));
 
-//Album album = new Album("A night at the opera");
+        Band band2 = new("Imagine Dragons");
+        band2.AddRating(new Rating(5));
+        band2.AddRating(new Rating(7));
+        band2.AddRating(new Rating(9));
 
-//Music music1 = new Music(queen, "Love of my life")
-//{
-//    Duration = 213,
-//    Available = true,
-//};
+        Dictionary<string, Band> bandList = new()
+        {
+            { band1.Name, band1 },
+            { band2.Name, band2 }
+        };
 
-//Music music2 = new Music(queen, "Bohemian Rhapsody")
-//{
-//    Duration = 354,
-//    Available = false,
-//};
+        void ShowWelcomeMessage()
+        {
+            Console.WriteLine(@"
+░██████╗░█████╗░██████╗░███████╗███████╗███╗░░██╗  ░██████╗░█████╗░██╗░░░██╗███╗░░██╗██████╗░
+██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝████╗░██║  ██╔════╝██╔══██╗██║░░░██║████╗░██║██╔══██╗
+╚█████╗░██║░░╚═╝██████╔╝█████╗░░█████╗░░██╔██╗██║  ╚█████╗░██║░░██║██║░░░██║██╔██╗██║██║░░██║
+░╚═══██╗██║░░██╗██╔══██╗██╔══╝░░██╔══╝░░██║╚████║  ░╚═══██╗██║░░██║██║░░░██║██║╚████║██║░░██║
+██████╔╝╚█████╔╝██║░░██║███████╗███████╗██║░╚███║  ██████╔╝╚█████╔╝╚██████╔╝██║░╚███║██████╔╝
+╚═════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚══╝  ╚═════╝░░╚════╝░░╚═════╝░╚═╝░░╚══╝╚═════╝░");
+            Console.WriteLine("\nBem vindo ao Screen Sound\n");
+        }
 
-//album.AddMusic(music1);
-//album.AddMusic(music2);
-//queen.AddAlbum(album);
+        void ShowMenuOptions()
+        {
+            ShowWelcomeMessage();
+            Console.WriteLine("Digite 1 para registrar banda");
+            Console.WriteLine("Digite 2 para registrar o álbum de uma banda");
+            Console.WriteLine("Digite 3 para mostrar todas as bandas");
+            Console.WriteLine("Digite 4 para avaliar uma banda");
+            Console.WriteLine("Digite 5 para avaliar um álbum");
+            Console.WriteLine("Digite 6 para exibir a média de uma banda");
+            Console.WriteLine("Digite alguma tecla para sair");
 
-//music1.ShowDetails();
-//music2.ShowDetails();
-//album.ShowMusics();
-//queen.ShowBand();
+            Console.Write("\nDigite a sua opção: ");
 
-// Podcast
+            string selectedOption = Console.ReadLine()!;
+            int numericSelectedOption = int.Parse(selectedOption);
 
-Podcast podcast = new Podcast("Podpah", "Igão");
-Guest guest = new Guest("Elon Musk");
-Guest guest2 = new Guest("Sarcani");
-Episode episode1 = new Episode(1, "SpaceX", 190);
+            Dictionary<int, Menu> options = new Dictionary<int, Menu>
+            {
+                { 1, new MenuRegisterBand() },
+                { 2, new MenuRegisterAlbum() },
+                { 3, new MenuShowAllBands() },
+                { 4, new MenuRatingBand() },
+                { 5, new MenuRatingAlbum() },
+                { 6, new MenuShowDetails() },
+            };
 
-episode1.AddGuest(guest);
-episode1.AddGuest(guest2);
-podcast.AddEpisode(episode1);
+            if (options.ContainsKey(numericSelectedOption))
+            {
+                options[numericSelectedOption].Run(bandList);
+                ShowMenuOptions();
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida, Tchau tchau :)");
+            }
+        }
 
-Guest guest3 = new Guest("Neymar");
-Guest guest4 = new Guest("Romario");
-Episode episode2 = new Episode(2, "Futvolei", 300);
-
-episode2.AddGuest(guest3);
-episode2.AddGuest(guest4);
-podcast.AddEpisode(episode2);
-
-podcast.ShowPodcastInfo();
+        ShowMenuOptions();
+    }
+}
